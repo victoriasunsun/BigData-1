@@ -5,7 +5,8 @@ MAINTAINER Xin Xiong <xiongxin20008@126.com>
 # 替换CRAN镜像为国内的镜像，可以更快的安装R packages
 ARG CRAN_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/CRAN/
 
-
+# 由于要安装程序，使用root身份
+USER root
 
 # 添加本地文件夹package到镜像中的/src
 ADD ./package/ /src/
