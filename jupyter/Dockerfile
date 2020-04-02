@@ -5,23 +5,6 @@ MAINTAINER Xin Xiong <xiongxin20008@126.com>
 # 替换CRAN镜像为国内的镜像，可以更快的安装R packages
 ARG CRAN_MIRROR=https://mirrors.tuna.tsinghua.edu.cn/CRAN/
 
-# 由于要安装程序，使用root身份
-USER root
-
-# install Java
-RUN \
-  apt-get update -qq && \
-  apt-get install -y openjdk-8-jdk  && \
-  apt-get install -y mlocate && updatedb && \
-  rm -rf /var/lib/apt/lists/*
-
-# 为安装rJava做准备
-# need using ln to avoid some errors, such as conftest.c:1:10: fatal error: jni.h: No such file or directory
-RUN \
-  ln -s /usr/lib/jvm/java-8-openjdk-amd64/include/jni.h /opt/conda/include/ && \
-  ln -s /usr/lib/jvm/java-8-openjdk-amd64/include/linux/jni_md.h /opt/conda/include/  && \
-  ln -s /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so /usr/lib/ && \  
-  R CMD javareconf
 
 
 # 添加本地文件夹package到镜像中的/src
